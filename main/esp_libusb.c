@@ -64,7 +64,6 @@ int esp_libusb_bulk_transfer(class_driver_t *driver_obj, unsigned char endpoint,
     adsbdev->transfer->callback = bulk_transfer_read_cb;
     adsbdev->transfer->context = (void *)&driver_obj;
     adsbdev->is_done = false;
-    // adsbdev->response_buf = calloc(sizePacket, sizeof(uint8_t));
     r = usb_host_transfer_submit(adsbdev->transfer);
     if (r != ESP_OK)
     {
@@ -81,16 +80,7 @@ int esp_libusb_bulk_transfer(class_driver_t *driver_obj, unsigned char endpoint,
         return -1;
     }
     *transferred = adsbdev->bytes_transferred;
-    //  memcpy(data, adsbdev->transfer->data_buffer, *transferred);
-    // fprintf(stdout, "Transferred: %d bytes\n", *transferred);
-    for (int i = 0; i < *transferred; i++)
-    {
-        data[i] = adsbdev->transfer->data_buffer[i];
-    }
-
-    // for (int i = 0; i < 10; i++)
-    //     fprintf(stdout, "%02X %02X %02X ", data[i], adsbdev->response_buf[i], adsbdev->transfer->data_buffer[i]);
-    // fprintf(stdout, "\n");
+    memcpy(data, adsbdev->transfer->data_buffer, *transferred);
     return 0;
 }
 
