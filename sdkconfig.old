@@ -1,7 +1,3 @@
-#
-# Automatically generated file. DO NOT EDIT.
-# Espressif IoT Development Framework (ESP-IDF) 5.5.4 Project Configuration
-#
 CONFIG_SOC_ADC_SUPPORTED=y
 CONFIG_SOC_ANA_CMPR_SUPPORTED=y
 CONFIG_SOC_DEDICATED_GPIO_SUPPORTED=y
@@ -728,6 +724,7 @@ CONFIG_ESPTOOLPY_FLASHMODE_DIO=y
 # CONFIG_ESPTOOLPY_FLASHMODE_DOUT is not set
 CONFIG_ESPTOOLPY_FLASH_SAMPLE_MODE_STR=y
 CONFIG_ESPTOOLPY_FLASHMODE="dio"
+# CONFIG_ESPTOOLPY_FLASHFREQ_80M is not set
 # CONFIG_ESPTOOLPY_FLASHFREQ_40M is not set
 CONFIG_ESPTOOLPY_FLASHFREQ_20M=y
 CONFIG_ESPTOOLPY_FLASHFREQ_VAL=20
@@ -829,6 +826,119 @@ CONFIG_COMPILER_ORPHAN_SECTIONS_WARNING=y
 #
 
 #
+# Bluetooth
+#
+# CONFIG_BT_ENABLED is not set
+
+#
+# Common Options
+#
+
+#
+# BLE Log
+#
+# CONFIG_BLE_LOG_ENABLED is not set
+# end of BLE Log
+
+# CONFIG_BT_BLE_LOG_SPI_OUT_ENABLED is not set
+# CONFIG_BT_BLE_LOG_UHCI_OUT_ENABLED is not set
+# CONFIG_BT_LE_USED_MEM_STATISTICS_ENABLED is not set
+# end of Common Options
+# end of Bluetooth
+
+#
+# Console Library
+#
+# CONFIG_CONSOLE_SORTED_HELP is not set
+# end of Console Library
+
+#
+# Driver Configurations
+#
+
+#
+# Legacy TWAI Driver Configurations
+#
+# CONFIG_TWAI_SKIP_LEGACY_CONFLICT_CHECK is not set
+# end of Legacy TWAI Driver Configurations
+
+#
+# Legacy ADC Driver Configuration
+#
+# CONFIG_ADC_SUPPRESS_DEPRECATE_WARN is not set
+# CONFIG_ADC_SKIP_LEGACY_CONFLICT_CHECK is not set
+
+#
+# Legacy ADC Calibration Configuration
+#
+# CONFIG_ADC_CALI_SUPPRESS_DEPRECATE_WARN is not set
+# end of Legacy ADC Calibration Configuration
+# end of Legacy ADC Driver Configuration
+
+#
+# Legacy MCPWM Driver Configurations
+#
+# CONFIG_MCPWM_SUPPRESS_DEPRECATE_WARN is not set
+# CONFIG_MCPWM_SKIP_LEGACY_CONFLICT_CHECK is not set
+# end of Legacy MCPWM Driver Configurations
+
+#
+# Legacy Timer Group Driver Configurations
+#
+# CONFIG_GPTIMER_SUPPRESS_DEPRECATE_WARN is not set
+# CONFIG_GPTIMER_SKIP_LEGACY_CONFLICT_CHECK is not set
+# end of Legacy Timer Group Driver Configurations
+
+#
+# Legacy RMT Driver Configurations
+#
+# CONFIG_RMT_SUPPRESS_DEPRECATE_WARN is not set
+# CONFIG_RMT_SKIP_LEGACY_CONFLICT_CHECK is not set
+# end of Legacy RMT Driver Configurations
+
+#
+# Legacy I2S Driver Configurations
+#
+# CONFIG_I2S_SUPPRESS_DEPRECATE_WARN is not set
+# CONFIG_I2S_SKIP_LEGACY_CONFLICT_CHECK is not set
+# end of Legacy I2S Driver Configurations
+
+#
+# Legacy I2C Driver Configurations
+#
+# CONFIG_I2C_SKIP_LEGACY_CONFLICT_CHECK is not set
+# end of Legacy I2C Driver Configurations
+
+#
+# Legacy PCNT Driver Configurations
+#
+# CONFIG_PCNT_SUPPRESS_DEPRECATE_WARN is not set
+# CONFIG_PCNT_SKIP_LEGACY_CONFLICT_CHECK is not set
+# end of Legacy PCNT Driver Configurations
+
+#
+# Legacy SDM Driver Configurations
+#
+# CONFIG_SDM_SUPPRESS_DEPRECATE_WARN is not set
+# CONFIG_SDM_SKIP_LEGACY_CONFLICT_CHECK is not set
+# end of Legacy SDM Driver Configurations
+
+#
+# Legacy Temperature Sensor Driver Configurations
+#
+# CONFIG_TEMP_SENSOR_SUPPRESS_DEPRECATE_WARN is not set
+# CONFIG_TEMP_SENSOR_SKIP_LEGACY_CONFLICT_CHECK is not set
+# end of Legacy Temperature Sensor Driver Configurations
+
+#
+# Legacy Touch Sensor Driver Configurations
+#
+# CONFIG_TOUCH_SUPPRESS_DEPRECATE_WARN is not set
+# CONFIG_TOUCH_SKIP_LEGACY_CONFLICT_CHECK is not set
+# end of Legacy Touch Sensor Driver Configurations
+# end of Driver Configurations
+
+#
 # eFuse Bit Manager
 #
 # CONFIG_EFUSE_CUSTOM_TABLE is not set
@@ -864,10 +974,134 @@ CONFIG_ESP_ERR_TO_NAME_LOOKUP=y
 # end of Common ESP-related
 
 #
+# ESP-Driver:Analog Comparator Configurations
+#
+CONFIG_ANA_CMPR_ISR_HANDLER_IN_IRAM=y
+# CONFIG_ANA_CMPR_CTRL_FUNC_IN_IRAM is not set
+# CONFIG_ANA_CMPR_ISR_CACHE_SAFE is not set
+CONFIG_ANA_CMPR_OBJ_CACHE_SAFE=y
+# CONFIG_ANA_CMPR_ENABLE_DEBUG_LOG is not set
+# end of ESP-Driver:Analog Comparator Configurations
+
+#
+# ESP-Driver:BitScrambler Configurations
+#
+# CONFIG_BITSCRAMBLER_CTRL_FUNC_IN_IRAM is not set
+# end of ESP-Driver:BitScrambler Configurations
+
+#
 # ESP-Driver:GPIO Configurations
 #
 # CONFIG_GPIO_CTRL_FUNC_IN_IRAM is not set
 # end of ESP-Driver:GPIO Configurations
+
+#
+# ESP-Driver:GPTimer Configurations
+#
+CONFIG_GPTIMER_ISR_HANDLER_IN_IRAM=y
+# CONFIG_GPTIMER_CTRL_FUNC_IN_IRAM is not set
+# CONFIG_GPTIMER_ISR_CACHE_SAFE is not set
+CONFIG_GPTIMER_OBJ_CACHE_SAFE=y
+# CONFIG_GPTIMER_ENABLE_DEBUG_LOG is not set
+# end of ESP-Driver:GPTimer Configurations
+
+#
+# ESP-Driver:I2C Configurations
+#
+# CONFIG_I2C_ISR_IRAM_SAFE is not set
+# CONFIG_I2C_ENABLE_DEBUG_LOG is not set
+# CONFIG_I2C_ENABLE_SLAVE_DRIVER_VERSION_2 is not set
+CONFIG_I2C_MASTER_ISR_HANDLER_IN_IRAM=y
+# end of ESP-Driver:I2C Configurations
+
+#
+# ESP-Driver:I2S Configurations
+#
+# CONFIG_I2S_ISR_IRAM_SAFE is not set
+# CONFIG_I2S_ENABLE_DEBUG_LOG is not set
+# end of ESP-Driver:I2S Configurations
+
+#
+# ESP-Driver:LEDC Configurations
+#
+# CONFIG_LEDC_CTRL_FUNC_IN_IRAM is not set
+# end of ESP-Driver:LEDC Configurations
+
+#
+# ESP-Driver:MCPWM Configurations
+#
+CONFIG_MCPWM_ISR_HANDLER_IN_IRAM=y
+# CONFIG_MCPWM_ISR_CACHE_SAFE is not set
+# CONFIG_MCPWM_CTRL_FUNC_IN_IRAM is not set
+CONFIG_MCPWM_OBJ_CACHE_SAFE=y
+# CONFIG_MCPWM_ENABLE_DEBUG_LOG is not set
+# end of ESP-Driver:MCPWM Configurations
+
+#
+# ESP-Driver:Parallel IO Configurations
+#
+CONFIG_PARLIO_TX_ISR_HANDLER_IN_IRAM=y
+CONFIG_PARLIO_RX_ISR_HANDLER_IN_IRAM=y
+# CONFIG_PARLIO_TX_ISR_CACHE_SAFE is not set
+# CONFIG_PARLIO_RX_ISR_CACHE_SAFE is not set
+CONFIG_PARLIO_OBJ_CACHE_SAFE=y
+# CONFIG_PARLIO_ENABLE_DEBUG_LOG is not set
+# CONFIG_PARLIO_ISR_IRAM_SAFE is not set
+# end of ESP-Driver:Parallel IO Configurations
+
+#
+# ESP-Driver:PCNT Configurations
+#
+# CONFIG_PCNT_CTRL_FUNC_IN_IRAM is not set
+# CONFIG_PCNT_ISR_IRAM_SAFE is not set
+# CONFIG_PCNT_ENABLE_DEBUG_LOG is not set
+# end of ESP-Driver:PCNT Configurations
+
+#
+# ESP-Driver:RMT Configurations
+#
+CONFIG_RMT_ENCODER_FUNC_IN_IRAM=y
+CONFIG_RMT_TX_ISR_HANDLER_IN_IRAM=y
+CONFIG_RMT_RX_ISR_HANDLER_IN_IRAM=y
+# CONFIG_RMT_RECV_FUNC_IN_IRAM is not set
+# CONFIG_RMT_TX_ISR_CACHE_SAFE is not set
+# CONFIG_RMT_RX_ISR_CACHE_SAFE is not set
+CONFIG_RMT_OBJ_CACHE_SAFE=y
+# CONFIG_RMT_ENABLE_DEBUG_LOG is not set
+# CONFIG_RMT_ISR_IRAM_SAFE is not set
+# end of ESP-Driver:RMT Configurations
+
+#
+# ESP-Driver:Sigma Delta Modulator Configurations
+#
+# CONFIG_SDM_CTRL_FUNC_IN_IRAM is not set
+# CONFIG_SDM_ENABLE_DEBUG_LOG is not set
+# end of ESP-Driver:Sigma Delta Modulator Configurations
+
+#
+# ESP-Driver:SPI Configurations
+#
+# CONFIG_SPI_MASTER_IN_IRAM is not set
+CONFIG_SPI_MASTER_ISR_IN_IRAM=y
+# CONFIG_SPI_SLAVE_IN_IRAM is not set
+CONFIG_SPI_SLAVE_ISR_IN_IRAM=y
+# end of ESP-Driver:SPI Configurations
+
+#
+# ESP-Driver:Temperature Sensor Configurations
+#
+# CONFIG_TEMP_SENSOR_ENABLE_DEBUG_LOG is not set
+# CONFIG_TEMP_SENSOR_ISR_IRAM_SAFE is not set
+# end of ESP-Driver:Temperature Sensor Configurations
+
+#
+# ESP-Driver:TWAI Configurations
+#
+# CONFIG_TWAI_ISR_IN_IRAM is not set
+# CONFIG_TWAI_IO_FUNC_IN_IRAM is not set
+# CONFIG_TWAI_ISR_CACHE_SAFE is not set
+# CONFIG_TWAI_ENABLE_DEBUG_LOG is not set
+# end of ESP-Driver:TWAI Configurations
 
 #
 # ESP-Driver:UART Configurations
@@ -890,12 +1124,40 @@ CONFIG_USJ_ENABLE_USB_SERIAL_JTAG=y
 # end of ESP-Driver:USB Serial/JTAG Configuration
 
 #
+# Ethernet
+#
+CONFIG_ETH_ENABLED=y
+CONFIG_ETH_USE_ESP32_EMAC=y
+CONFIG_ETH_PHY_INTERFACE_RMII=y
+CONFIG_ETH_DMA_BUFFER_SIZE=512
+CONFIG_ETH_DMA_RX_BUFFER_NUM=20
+CONFIG_ETH_DMA_TX_BUFFER_NUM=10
+# CONFIG_ETH_SOFT_FLOW_CONTROL is not set
+# CONFIG_ETH_IRAM_OPTIMIZATION is not set
+CONFIG_ETH_USE_SPI_ETHERNET=y
+# CONFIG_ETH_SPI_ETHERNET_DM9051 is not set
+# CONFIG_ETH_SPI_ETHERNET_W5500 is not set
+# CONFIG_ETH_SPI_ETHERNET_KSZ8851SNL is not set
+# CONFIG_ETH_USE_OPENETH is not set
+# CONFIG_ETH_TRANSMIT_MUTEX is not set
+# end of Ethernet
+
+#
 # Event Loop Library
 #
 # CONFIG_ESP_EVENT_LOOP_PROFILING is not set
 CONFIG_ESP_EVENT_POST_FROM_ISR=y
 CONFIG_ESP_EVENT_POST_FROM_IRAM_ISR=y
 # end of Event Loop Library
+
+#
+# GDB Stub
+#
+CONFIG_ESP_GDBSTUB_ENABLED=y
+# CONFIG_ESP_SYSTEM_GDBSTUB_RUNTIME is not set
+CONFIG_ESP_GDBSTUB_SUPPORT_TASKS=y
+CONFIG_ESP_GDBSTUB_MAX_TASKS=32
+# end of GDB Stub
 
 #
 # ESP HTTP client
@@ -932,11 +1194,11 @@ CONFIG_ESP_HW_SUPPORT_FUNC_IN_IRAM=y
 # Read the help text of the option below for explanation
 #
 CONFIG_ESP32P4_SELECTS_REV_LESS_V3=y
-CONFIG_ESP32P4_REV_MIN_0=y
-# CONFIG_ESP32P4_REV_MIN_1 is not set
+# CONFIG_ESP32P4_REV_MIN_0 is not set
+CONFIG_ESP32P4_REV_MIN_1=y
 # CONFIG_ESP32P4_REV_MIN_100 is not set
-CONFIG_ESP32P4_REV_MIN_FULL=0
-CONFIG_ESP_REV_MIN_FULL=0
+CONFIG_ESP32P4_REV_MIN_FULL=1
+CONFIG_ESP_REV_MIN_FULL=1
 
 #
 # Maximum Supported ESP32-P4 Revision (Rev v1.99)
@@ -1003,7 +1265,7 @@ CONFIG_ESP_REGI2C_CTRL_FUNC_IN_IRAM=y
 #
 # GDMA Configurations
 #
-# CONFIG_GDMA_CTRL_FUNC_IN_IRAM is not set
+CONFIG_GDMA_CTRL_FUNC_IN_IRAM=y
 CONFIG_GDMA_ISR_HANDLER_IN_IRAM=y
 CONFIG_GDMA_OBJ_DRAM_SAFE=y
 # CONFIG_GDMA_ENABLE_DEBUG_LOG is not set
@@ -1072,6 +1334,7 @@ CONFIG_ESP_BROWNOUT_USE_INTR=y
 # end of RTC Backup Battery
 # end of Power Supplier
 
+CONFIG_ESP_SPI_BUS_LOCK_ISR_FUNCS_IN_IRAM=y
 CONFIG_ESP_ENABLE_PVT=y
 CONFIG_ESP_INTR_IN_IRAM=y
 CONFIG_P4_REV3_MSPI_WORKAROUND_SIZE=0
@@ -1190,6 +1453,7 @@ CONFIG_ESP_SYSTEM_IN_IRAM=y
 # CONFIG_ESP_SYSTEM_PANIC_PRINT_HALT is not set
 CONFIG_ESP_SYSTEM_PANIC_PRINT_REBOOT=y
 # CONFIG_ESP_SYSTEM_PANIC_SILENT_REBOOT is not set
+# CONFIG_ESP_SYSTEM_PANIC_GDBSTUB is not set
 CONFIG_ESP_SYSTEM_PANIC_REBOOT_DELAY_SECONDS=0
 CONFIG_ESP_SYSTEM_RTC_FAST_MEM_AS_HEAP_DEPCHECK=y
 CONFIG_ESP_SYSTEM_ALLOW_RTC_FAST_MEM_AS_HEAP=y
@@ -1649,7 +1913,7 @@ CONFIG_MBEDTLS_CERTIFICATE_BUNDLE_MAX_CERTS=200
 # end of Certificate Bundle
 
 # CONFIG_MBEDTLS_ECP_RESTARTABLE is not set
-# CONFIG_MBEDTLS_CMAC_C is not set
+CONFIG_MBEDTLS_CMAC_C=y
 CONFIG_MBEDTLS_HARDWARE_AES=y
 CONFIG_MBEDTLS_AES_USE_INTERRUPT=y
 CONFIG_MBEDTLS_AES_INTERRUPT_LEVEL=0
@@ -1960,6 +2224,33 @@ CONFIG_VFS_SEMIHOSTFS_MAX_MOUNT_POINTS=1
 
 CONFIG_VFS_INITIALIZE_DEV_NULL=y
 # end of Virtual file system
+
+#
+# eppp_link
+#
+# CONFIG_EPPP_LINK_USES_PPP is not set
+CONFIG_EPPP_LINK_DEVICE_UART=y
+# CONFIG_EPPP_LINK_DEVICE_SPI is not set
+# CONFIG_EPPP_LINK_DEVICE_SDIO is not set
+# CONFIG_EPPP_LINK_DEVICE_ETH is not set
+CONFIG_EPPP_LINK_CONN_MAX_RETRY=6
+# CONFIG_EPPP_LINK_CHANNELS_SUPPORT is not set
+# end of eppp_link
+
+# CONFIG_ESP_HOSTED_ENABLED is not set
+
+#
+# Wi-Fi Remote
+#
+# CONFIG_ESP_WIFI_REMOTE_ENABLED is not set
+CONFIG_ESP_WIFI_REMOTE_IS_DISABLED=y
+CONFIG_ESP_WIFI_REMOTE_FORCE_DISABLED=y
+# end of Wi-Fi Remote
+
+#
+# Wi-Fi Remote over EPPP
+#
+# end of Wi-Fi Remote over EPPP
 # end of Component config
 
 # CONFIG_IDF_EXPERIMENTAL_FEATURES is not set
