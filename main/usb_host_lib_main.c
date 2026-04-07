@@ -7,7 +7,9 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "freertos/queue.h"
+#include "nvs_flash.h"
 #include "freertos/event_groups.h"
+#include <wifi_config.h>
 #include "esp_log.h"
 #include "esp_intr_alloc.h"
 #include "usb/usb_host.h"
@@ -74,37 +76,44 @@ static void gpio_cb(void *arg)
     }
 }
 
-/**
- * @brief Set configuration callback
- *
- * Set the USB device configuration during the enumeration process, must be enabled in the menuconfig
-
- * @note bConfigurationValue starts at index 1
- *
- * @param[in] dev_desc device descriptor of the USB device currently being enumerated
- * @param[out] bConfigurationValue configuration descriptor index, that will be user for enumeration
- *
- * @return bool
- * - true:  USB device will be enumerated
- * - false: USB device will not be enumerated
- */
-#ifdef ENABLE_ENUM_FILTER_CALLBACK
-static bool set_config_cb(const usb_device_desc_t *dev_desc, uint8_t *bConfigurationValue)
+#define BUTTON_GPIO 46
+void button_task(void *pvParameter)
 {
-    // If the USB device has more than one configuration, set the second configuration
-    if (dev_desc->bNumConfigurations > 1)
+    ESP_LOGI(TAG, "Button task started");
+    while (1)
     {
-        *bConfigurationValue = 2;
-    }
-    else
-    {
-        *bConfigurationValue = 1;
-    }
+        ESP_LOGI(TAG, "[APP] Free memory: %ld bytes", esp_get_free_heap_size());
 
-    // Return true to enumerate the USB device
-    return true;
+        bool state = gpio_get_level(BUTTON_GPIO);
+        ESP_LOGI(TAG, "Button GPIO level: %d", state);
+        if (!state)
+        {
+            ESP_LOGW(TAG, "BUTTON PRESSED → RESET WIFI");
+            wifi_config_reset(); // bevat al een esp_restart()
+            esp_restart();
+        }
+        // send_mqtt("hello");
+        vTaskDelay(pdMS_TO_TICKS(500));
+    }
 }
-#endif // ENABLE_ENUM_FILTER_CALLBACK
+static volatile bool wifi_ready = false;
+void on_wifi_ready()
+{
+    ESP_LOGW(TAG, "YOOOOO");
+    wifi_ready = true;
+}
+#define DEVICE_NAME "planenode"
+void setup_wifi()
+{
+    xTaskCreate(button_task, "button_task", 1024 * 2, NULL, 10, NULL);
+    wifi_config_init(DEVICE_NAME, NULL, on_wifi_ready);
+    while (!wifi_ready)
+    {
+        vTaskDelay(pdMS_TO_TICKS(500));
+
+        ESP_LOGI(TAG, "waiting for wifi");
+    }
+}
 
 /**
  * @brief Start USB Host install and handle common USB host library events while app pin not low
@@ -161,21 +170,8 @@ static void usb_host_lib_task(void *arg)
     vTaskSuspend(NULL);
 }
 
-void app_main(void)
+void plane_stuff(void)
 {
-    ESP_LOGI(TAG, "USB host library example");
-
-    // Init BOOT button: Pressing the button simulates app request to exit
-    // It will uninstall the class driver and USB Host Lib
-    const gpio_config_t input_pin = {
-        .pin_bit_mask = BIT64(APP_QUIT_PIN),
-        .mode = GPIO_MODE_INPUT,
-        .pull_up_en = GPIO_PULLUP_ENABLE,
-        .intr_type = GPIO_INTR_NEGEDGE,
-    };
-    ESP_ERROR_CHECK(gpio_config(&input_pin));
-    ESP_ERROR_CHECK(gpio_install_isr_service(ESP_INTR_FLAG_LEVEL1));
-    ESP_ERROR_CHECK(gpio_isr_handler_add(APP_QUIT_PIN, gpio_cb, NULL));
 
     app_event_queue = xQueueCreate(10, sizeof(app_event_queue_t));
     app_event_queue_t evt_queue;
@@ -240,4 +236,29 @@ void app_main(void)
     xQueueReset(app_event_queue);
     vQueueDelete(app_event_queue);
     ESP_LOGI(TAG, "End of the example");
+}
+void gpio_init()
+{
+    // LED setup
+
+    // Knop setup
+    gpio_config_t io_conf = {
+        .pin_bit_mask = 1ULL << BUTTON_GPIO,
+        .mode = GPIO_MODE_INPUT,
+        .pull_up_en = GPIO_PULLUP_ENABLE,
+        .pull_down_en = GPIO_PULLDOWN_DISABLE,
+        .intr_type = GPIO_INTR_DISABLE};
+    gpio_config(&io_conf);
+}
+
+
+void app_main(void)
+{
+    nvs_flash_init();
+
+    gpio_init();
+    setup_wifi();
+    // Init BOOT button: Pressing the button simulates app request to exit
+    // It will uninstall the class driver and USB Host Lib
+    plane_stuff();
 }

@@ -1,0 +1,3 @@
+[submodule "components/esp32-wifi-bootstrap"]
+	path = components/esp32-wifi-bootstrap
+	url = https://github.com/Joseph-Melberg/esp32-wifi-bootstrap
