@@ -158,7 +158,7 @@ void init_mqtt()
          
         ESP_LOGW(TAG,"couldn't heard? %d", subscription_ready);
 }
-    int msg_id = esp_mqtt_client_publish(client, "device/check", mac_string, 0, 0, 0);
+    int msg_id = esp_mqtt_client_publish(client, "fromdevice/check", mac_string, 0, 0, 0);
     ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
 
 }
