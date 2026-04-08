@@ -14,6 +14,8 @@
 #include "esp_intr_alloc.h"
 #include "usb/usb_host.h"
 #include "driver/gpio.h"
+#include "waiter.h"
+#include "mqttclient.h"
 
 #define HOST_LIB_TASK_PRIORITY 2
 #define CLASS_TASK_PRIORITY 3
@@ -251,6 +253,17 @@ void gpio_init()
     gpio_config(&io_conf);
 }
 
+void setup_mqtt()
+{
+    xTaskCreate(mqtt_task, "mqtt_task", 2048+1024, NULL, 10, NULL);
+    LIMITEDWAIT(10,500,mqtt_is_ready(),TAG,"waiting for mqtt");
+    // while (!mqtt_is_ready())
+    // {
+    //     vTaskDelay(pdMS_TO_TICKS(500));
+
+    //     ESP_LOGI(TAG, "waiting for mqtt");    
+    // }
+}
 
 void app_main(void)
 {
@@ -258,6 +271,7 @@ void app_main(void)
 
     gpio_init();
     setup_wifi();
+    setup_mqtt();
     // Init BOOT button: Pressing the button simulates app request to exit
     // It will uninstall the class driver and USB Host Lib
     plane_stuff();
