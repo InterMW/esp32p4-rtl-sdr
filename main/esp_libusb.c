@@ -42,19 +42,27 @@ void transfer_read_cb(usb_transfer_t *transfer)
     // printf("Transfer:Read type %d %ld \n", transfer->actual_num_bytes, transfer->flags);
     // printf("Transfer:Read status %d, actual number of bytes transferred %d, databuffer size %d, %d\n", transfer->status, transfer->actual_num_bytes, transfer->data_buffer[8], adsbdev->response_buf[8]);
 }
+static int didset = 0;
 
 int esp_libusb_bulk_transfer(class_driver_t *driver_obj, unsigned char endpoint, unsigned char *data, int length, int *transferred, unsigned int timeout)
 {
-    ESP_ERROR_CHECK(usb_host_transfer_free(adsbdev->transfer));
+   size_t sizePacket = usb_round_up_to_mps(length, 512);
+    esp_err_t r;
+   if (!didset)
+    {
+            ESP_LOGI(TAG_ADSB, "[APP] Free memory: %ld bytes %ld", esp_get_free_heap_size(), sizePacket);
+        r = usb_host_transfer_alloc(sizePacket, 0, &adsbdev->transfer);
+        if (r != ESP_OK)
+        {
+            ESP_LOGI(TAG_ADSB, "esp_libusb_bulk_transfer alloc failed with %d, couldnt fit %d", r, sizePacket);
+            return -1;
+        }
+        didset=1;
+    }
+
+    adsbdev->response_buf = NULL;
     adsbdev->response_buf = NULL;
     // free(adsbdev->response_buf);
-    size_t sizePacket = usb_round_up_to_mps(length, 512);
-    esp_err_t r = usb_host_transfer_alloc(sizePacket, 0, &adsbdev->transfer);
-    if (r != ESP_OK)
-    {
-        ESP_LOGI(TAG_ADSB, "esp_libusb_bulk_transfer failed with %d", r);
-        return -1;
-    }
 
     // ESP_LOGI(TAG_ADSB, "esp_libusb_bulk_transfer usb_host_transfer_alloc %d %d", sizePacket, length);
     adsbdev->transfer->num_bytes = sizePacket;

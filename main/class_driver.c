@@ -11,6 +11,7 @@
 #include "usb/usb_host.h"
 #include "rtl-sdr.h"
 #include "mode-s.h"
+#include "mqttclient.h"
 
 #define CLIENT_NUM_EVENT_MSG 5
 
@@ -66,12 +67,28 @@ static rtlsdr_dev_t *rtldev = NULL;
 static class_driver_t *s_driver_obj;
 static mode_s_t state;
 
+static unsigned char lastmsg[MODE_S_LONG_MSG_BYTES]; // Binary message
+static int lastlength;
+
 void on_msg(mode_s_t *self, struct mode_s_msg *mm)
 {
-    int msgLength = mm->msgbits / 8;
-    for (int i = 0; i < msgLength; i++)
-        fprintf(stdout, "%02X", mm->msg[i]);
-    fprintf(stdout, ";\n");
+
+    int msgLength = mm->msgbits/8 ;
+
+    if (lastlength == mm->msgbits)
+    {
+        int index = 0;
+        while (mm->msg[index] == lastmsg[index] && ++index < msgLength) { }
+        if (index == msgLength)
+        {
+            return;
+        }
+    }
+
+    memcpy(lastmsg,mm->msg,sizeof(mm->msg));
+    lastlength = mm->msgbits;
+
+    enqueue_message(mm);
 }
 
 void demodulate(uint8_t *source, int length)

@@ -12,7 +12,7 @@
 #include "freertos/task.h"
 #include "freertos/queue.h"
 // #define CONFIG_BROKER_URL "mqtt://10.0.0.5:1883"
-#define PLANEFRAME_TOPIC "plane"
+#define PLANEFRAME_TOPIC "fromdevice/plane"
 #define KEEPALIVE_TOPIC "fromdevice/alive"
 
 static const char *TAG = "mqtt5_example";
@@ -217,12 +217,12 @@ void mqtt_task()
             // sprintf(outt + i * 2, "%c", mac_string[i]);
             outt[i] = mac_string[i];
         }
-        outt[mac_string_len] = ':';
+        outt[mac_string_len-1] = ':';
         for (int i = 0; i < message.msgbits / 8; i++)
         {
             sprintf(outt + mac_len * 2 + 1 + i * 2, "%02X", message.msg[i]);
         }
-
+        printf("%s\n",outt);
         // printf("\n %s recie\n", outt);
 
         // fprintf(stdout, "%02X was received\n", message);

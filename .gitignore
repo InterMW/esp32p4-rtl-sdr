@@ -1,2 +1,3 @@
 build
 main/secret.h
+server_certs/ca_cert.pem
