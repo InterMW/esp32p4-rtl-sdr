@@ -16,6 +16,7 @@
 #include "driver/gpio.h"
 #include "waiter.h"
 #include "mqttclient.h"
+#include "ota_handler.h"
 
 #define HOST_LIB_TASK_PRIORITY 2
 #define CLASS_TASK_PRIORITY 3
@@ -272,6 +273,7 @@ void app_main(void)
     gpio_init();
     setup_wifi();
     setup_mqtt();
+    do_upgrade();
     // Init BOOT button: Pressing the button simulates app request to exit
     // It will uninstall the class driver and USB Host Lib
     plane_stuff();

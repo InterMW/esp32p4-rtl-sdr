@@ -8,6 +8,7 @@ extern struct mode_s_msg;
 void enqueue_message(struct mode_s_msg* message);
 
 int mqtt_is_ready();
+void close_connection();
 int is_callback_verified();
 
 #endif

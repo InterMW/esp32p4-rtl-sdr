@@ -242,6 +242,11 @@ void mqtt_task()
 }
 
 
+void close_connection()
+{
+    esp_mqtt_client_disconnect(client);
+}
+
 void send_mqtt(char *message)
 {
 
