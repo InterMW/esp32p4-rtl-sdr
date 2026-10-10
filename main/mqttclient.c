@@ -13,6 +13,7 @@
 #include "freertos/queue.h"
 // #define CONFIG_BROKER_URL "mqtt://10.0.0.5:1883"
 #define PLANEFRAME_TOPIC "fromdevice/plane"
+#define INFO_TOPIC "fromdevice/info"
 #define KEEPALIVE_TOPIC "fromdevice/alive"
 
 static const char *TAG = "mqtt5_example";
@@ -200,6 +201,7 @@ void mqtt_keep_alive_task()
         vTaskDelay(pdMS_TO_TICKS(30*1000));
     }
 }
+
 void mqtt_task()
 {
     init_mqtt();
@@ -255,13 +257,17 @@ void send_mqtt(char *message)
         int msg_id = esp_mqtt_client_publish(client, PLANEFRAME_TOPIC, message, 0, 0, false);
         ESP_LOGI(TAG, "also sent publish successful, msg_id=%d", msg_id);
     }
-    // ESP_ERROR_CHECK(esp_netif_init());
-    // int msg_id = esp_mqtt_client_publish(client,PLANEFRAME_TOPIC, message,0,0,false);
-    // ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
-    // X set up port forwarding for mqtt
-    // confirm that it works
-    // set up publishing
-    // set up a/b
-    // ???
-    // profit
+}
+
+void send_info(float temperature, char * ipAddress)
+{
+    if (mqtt_ready)
+    {
+        char message[100] = {0};
+        sprintf(message, "%s:%d:%s", mac_string,(int) temperature, ipAddress);
+
+        int msg_id = esp_mqtt_client_publish(client, INFO_TOPIC, message, 0, 0, false);
+        ESP_LOGI(TAG, "also sent publish successful, msg_id=%d", msg_id);
+    }
+
 }

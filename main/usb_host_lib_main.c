@@ -274,9 +274,7 @@ void app_main(void)
     gpio_init();
     setup_wifi();
     setup_mqtt();
-    info_task();
     do_upgrade();
-    // Init BOOT button: Pressing the button simulates app request to exit
-    // It will uninstall the class driver and USB Host Lib
+    setup_info();
     plane_stuff();
 }

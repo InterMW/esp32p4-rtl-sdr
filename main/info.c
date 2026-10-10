@@ -150,16 +150,14 @@ void info_task()
 {
     ESP_ERROR_CHECK(temperature_sensor_install(&temp_sensor_config, &temp_handle));
 
-    char buff[4*3+4 + 1] = {0};
+    char ipAddress[4*3+4 + 1] = {0};
     while(true)
     {
-        vTaskDelay(pdMS_TO_TICKS(1000));
         float temperature;
         get_temperature(& temperature);
-        get_ip_address(buff);
-        printf("Temperature in %f °C\n IP is %s", temperature, buff);
-
-
+        get_ip_address(ipAddress);
+        send_info(temperature, ipAddress);
+        vTaskDelay(pdMS_TO_TICKS(1000 * 60 * 60 * 12));
     }
 }
 

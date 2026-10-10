@@ -1,6 +1,6 @@
 #ifndef INFO_H
 #define INFO_H
 
-void info_task();
+void setup_info();
 
 #endif

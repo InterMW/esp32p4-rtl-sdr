@@ -2,6 +2,7 @@
 #define MQTT_CLIENT_T
 
 void send_mqtt(char* message);
+void send_info(float temperature, char * ipAddress);
 void mqtt_task();
 void init_mqtt();
 extern struct mode_s_msg;
