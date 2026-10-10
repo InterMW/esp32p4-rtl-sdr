@@ -15,6 +15,7 @@
 #include "usb/usb_host.h"
 #include "driver/gpio.h"
 #include "waiter.h"
+#include "info.h"
 #include "mqttclient.h"
 #include "ota_handler.h"
 
@@ -273,6 +274,7 @@ void app_main(void)
     gpio_init();
     setup_wifi();
     setup_mqtt();
+    info_task();
     do_upgrade();
     // Init BOOT button: Pressing the button simulates app request to exit
     // It will uninstall the class driver and USB Host Lib
