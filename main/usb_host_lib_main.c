@@ -275,6 +275,6 @@ void app_main(void)
     setup_wifi();
     setup_mqtt();
     do_upgrade();
-    setup_info();
+//    setup_info();
     plane_stuff();
 }

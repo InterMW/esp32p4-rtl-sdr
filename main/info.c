@@ -144,6 +144,7 @@ void get_ip_address(char* buffer)
       printf("Got %s in %d\n", buffer, down);
     }
     esp_http_client_cleanup(client);
+    esp_http_client_close(client);
 }
 
 void info_task()
@@ -151,13 +152,13 @@ void info_task()
     ESP_ERROR_CHECK(temperature_sensor_install(&temp_sensor_config, &temp_handle));
 
     char ipAddress[4*3+4 + 1] = {0};
+    get_ip_address(ipAddress);
+    float temperature;
+    get_temperature(& temperature);
+    send_info(temperature, ipAddress);
     while(true)
     {
-        float temperature;
-        get_temperature(& temperature);
-        get_ip_address(ipAddress);
-        send_info(temperature, ipAddress);
-        vTaskDelay(pdMS_TO_TICKS(1000 * 60 * 60 * 12));
+        vTaskDelay(pdMS_TO_TICKS(1000 * 60 * 60 * 60));
     }
 }
 
